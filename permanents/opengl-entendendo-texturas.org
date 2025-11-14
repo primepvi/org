@@ -1,0 +1,137 @@
+#+title: OpenGL - Entendendo Texturas
+#+created_at: [2025-11-10]
+#+edited_at: [2025-14-10]
+#+tags: golang c data-structures
+
+** Introdução
+
+Uma textura é uma imagem 2D utilizada para adicionar detalhes a um objeto, é como se fosse um plano que dobramos em cima da forma para criar detalhes sem precisar criar vértices extras.
+
+Para mapearmos uma textura para um triângulo por exemplo, precisamos dizer a cada vértice do triângulo que parte da textura corresponde. Dessa forma, cada vértice precisa ter uma coordenada de textura associado, especificando qual parte da imagem de textura será utilizada.
+
+** Coordenadas de Textura
+
+As coordenadas de textura variam de 0 até 1 para os eixos X e Y, começando em (0, 0) no canto inferior esquerdo da imagem da textura para (1, 1) para o canto superior direito da imagem da textura. Veja o exemplo abaixo:
+
+[[file:../assets/texture-coords.png]]
+
+As coordenadas de textura resultantes seriam assim:
+
+#+begin_src cpp
+float texCoords[] = {
+    0.0f, 0.0f,  // esquerda embaixo
+    1.0f, 0.0f,  // direita embaixo
+    0.5f, 1.0f   // meio em cima
+};
+#+end_src
+
+** Texture Wrapping
+
+As coordenadas de textura variam de (0, 0) para (1, 1), portanto se especificamos coordenadas fora desse intervalo o OpenGL vai fazer um tratamento dessa textura, existem diversos tipos de abordagens sendo elas:
+
+- GL_REPEAT: O comportamento padrão para texturas. Repeti a imagem de textura.
+- GL_MIRRORED_REPEAT: O mesmo como GL_REPEAT, mas espelha a imagem a cada repetição.
+- GL_CLAMP_TO_EDGE: O resultado é que as coordenadas mais altas ficam presas à borda, resultando em um padrão de borda esticada.
+- GL_CLAMP_TO_BORDER: Coordenadas fora do intervalo agora recebem uma cor de borda especificada pelo usuário.
+
+[[file:../assets/texture-wrapping.png]]
+
+Cada opção pode ser setada para cada eixo de coordenada sendo (s, t, r) equivalente a (x, y, z) usando a função `glTexParameteri`, veja o exemplo abaixo:
+
+#+begin_src c
+
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+#+end_src
+
+Se utilizarmos o GL_CLAMP_TO_BORDER podemos alterar a cor da borda da seguinte forma:
+
+#+begin_src cpp
+float borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+#+end_src
+
+** Texture Filtering
+
+As coordenadas de textura não dependem da resolução, podendo ser qualquer valor de ponto flutuante o OpenGL tem que descobrir qual pixel de textura (*texel*) mapear para a coordenada de textura, isso se torna importante se você tiver um objeto muito grande e uma textura de baixa resolução. Para isso, o OpenGL nós proporciona algumas opções de filtragem de textura, sendo as mais importantes GL_NEAREST e GL_LINEAR.
+
+*GL_NEAREST:* é o método de filtragem de textura padrão do OpenGL. Quando definido como opção para filtragem de textura, o OpenGL seleciona o texel que o centro está mais próximo da coordenada exata da textura. Veja um exemplo abaixo:
+
+[[file:../assets/nearest.png]]
+
+*GL_LINEAR:* Quando definido como opção para filtragem de textura, o OpenGL toma um valor interpolado das texels vizinhas da coordenada de textura, aproximando uma cor entre os texels. Quando menos a distância da coordenada de textura ao centro de um texel, mais a cor do texel contribui para a cor amostrada. Veja um exemplo abaixo:
+
+[[file:../assets/linear.png]]
+
+Você pode ver qual efeito desses métodos de filtragem de textura funcionam ao usar uma textura de baixa resolução em um objeto grande logo abaixo:
+
+[[file:../assets/nearest-linear.png]]
+
+O método de filtragem de textura pode ser setado tanto para ampliação (mag/aumentar tamanho) e minificação (min/diminuir tamanho). Veja um exemplo abaixo:
+
+#+begin_src c
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+#+end_src
+
+** Mipmaps
+
+Quando temos muitos objetos com texturas anexadas, haverá objetos distantes com a mesma textura de alta resolução anexada que os objetos próximos do espectador. Pelo fato de que esses objetos estão distantes, provavelmente produzem apenas alguns fragmentos, portanto o OpenGL tem dificuldades em recuperar o valor de cor certo para seu fragmento de textura de alta resolução, pelo fato de ter que escolher uma cor de textura para um fragmento que abrange uma grande parte da textura. Isso produz pequenos artefatos visíveis em pequenos objetos, sem mencionar o custo desnecessário ao utilizar texturas de alta resolução em pequenos objetos.
+
+Para resolver esse problema, o OpenGL usa o conceito de Mipmaps, que são basicamente uma coleção de imagens de textura de diversos tamanhos, onde cada textura subsequente é duas vezes menos em comparação com a anterior. Veja um exemplo abaixo:
+
+[[file:../assets/mipmaps.png]]
+A ideia por trás desse tipo de textura é simples, depois de uma distância do visualizador o OpenGL usará uma textura mipmap diferente que melhor se adapte à distância do objeto. Como o objeto está longe, a resolução menor não será perceptível para o usuário, trazendo assim uma otimização na renderização.
+
+Para criar uma coleção de texturas mipmapped podemos utilizar a função `glGenerateMipmap(GL_TEXTURE_2D`. Também é interessante colocar a filtragem de textura na minificação para incluir o mipmap:
+
+- GL_NEAREST_MIPMAP_NEAREST: pega o mipmap mais próximo para corresponder ao tamanho do pixel e usa a interpolação vizinha mais próxima para amostragem de textura.
+- GL_LINEAR_MIPMAP_NEAREST: leva o nível de mipmap mais próximo e as amostras que nível usando interpolação linear.
+- GL_NEAREST_MIPMAP_LINEAR: interpopsa linearmente entre os dois mipmaps que mais se aproximam do tamanho de um pixel e amostras do nível interpolado através da interpolação do vizinho mais próximo.
+- GL_LINEAR_MIPMAP_LINEAR: interpola linearmente entre os dois mipmaps mais próximos e as amostras do nível interpolado através de interpolação linear.
+
+** Criando uma Textura
+
+Para criar uma textura a abordagem é a mesma dos objetos convencionais do OpenGL, geramos um id e fazemos a associação depois.
+
+#+begin_src c
+GLuint textureId;
+glGenTextures(1, &textureId);
+glBindTexture(GL_TEXTURE_2D, texture);
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+glGenerateMipmap(GL_TEXTURE_2D);
+#+end_src
+
+** Shaders
+
+Precisamos receber as coordenadas de textura no vertex shader para passarmos para o fragment shader, afim de exibirmos a textura. Veja um exemplo abaixo:
+
+#+begin_src glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTexCoord;
+
+out vec2 TexCoord;
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+    TexCoord = aTexCoord;
+}
+#+end_src
+
+#+begin_src glsl
+#version 330 core
+out vec4 FragColor;
+
+in vec2 TexCoord;
+
+uniform sampler2D ourTexture;
+
+void main()
+{
+    FragColor = texture(ourTexture, TexCoord);
+}
+#+end_src
+
+Percebe-se que uniformes do tipo sampler2D são carregados automaticamente com nossas texturas pelo OpenGL.

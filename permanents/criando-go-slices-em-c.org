@@ -1,0 +1,101 @@
+#+title: Criando Go Slices em C
+#+created_at: [2025-11-10]
+#+edited_at: [2025-14-10]
+#+tags: golang c data-structures
+
+** Introdução
+
+Em Go, um slice é uma estrutura de dado que representa uma “visão/fatia” de um array, dessa maneira podemos ter vários sub-arrays que compartilham a memória do array pai.
+
+Internamente, podemos entender que um slice é constituído pelos seguintes elementos:
+- *buffer:* representa uma referência para um array, sendo assim também o primeiro elemento da fatia;
+- *length*: representa a quantidade de elementos na fatia;
+- *capacity*: representa a capacidade total do buffer referenciado pela fatia;
+- *element_size*: representa o tamanho em bytes de cada elemento do array.
+
+Portanto, temos a seguinte estrutura:
+
+#+begin_src c
+typedef struct Slice {
+  void *buffer;
+  size_t length;
+  size_t capacity;
+  size_t element_size;
+} slice_t;
+#+end_src
+
+** Criação do Slice
+
+Para criarmos slices em go, podemos utilizar a sintaxe com valores literais, de tal forma que o compilador crie um array por nós e faça o slice apontar para ele, veja um exemplo logo abaixo:
+
+#+begin_src go
+slice := []int{10, 20, 30, 40}
+#+end_src
+
+Portanto, podemos replicar isso em C através de uma função, da seguinte maneira:
+
+#+begin_src c
+slice_t* slice_create(void *array, size_t length, size_t element_size) {
+    slice_t *slice = (slice_t*) malloc(sizeof(slice_t));
+    slice->buffer = array;
+    slice->length = slice->capacity = length;
+    slice->element_size = element_size;
+    
+    return slice;
+}
+#+end_src
+
+A experiência de uso ficaria da seguinte forma:
+
+#+begin_src c
+int numbers[] = {10, 20, 30, 40, 50}
+slice_t *slice = slice_create(numbers, 5, sizeof(int)); 
+#+end_src
+
+** Fatiamento de Slices
+
+O fatiamento de slices em go nos permite criar cópias superficiais de partes de um slice, compartilhando o mesmo buffer (bloco de memória). A sintaxe em go para efetuarmos o fatiamento é `slice[low:high]` onde *low (inclusivo)* representa a posição inicial do novo slice e *high (exclusivo)* representa o final do novo slice. Veja alguns exemplos abaixo:
+
+#+begin_src go
+slice := []int{10, 20, 30, 40, 50}
+a := slice[0:2] // [ 10, 20 ]
+b := slice[:] // [ 10, 20, 30, 40, 50 ]
+
+// do index 2 até o final
+c := slice[2:] // [ 30, 40, 50 ]
+
+// do inicio até o index 3 ( número 30 )
+d := slice[:3] // [ 10, 20, 30 ]
+#+end_src
+
+Portanto, podemos replicar isso em C utilizando funções, da seguinte maneira:
+
+#+begin_src c
+slice_t* slice_slicing(const slice_t *source, size_t low, size_t high) {
+	if (low > high || high > source->length || source == NULL)
+		return NULL; // Retornar NULL em caso de argumentos Inválidos.
+	
+	void *new_buffer = (uint8_t*)source->buffer + (low * source->element_size);
+	size_t new_length = high - low;
+  size_t new_capacity = source->capacity - low;
+  
+	slice_t *new_slice = slice_create(new_buffer, new_length, 
+		source->element_size);
+		
+	new_slice->capacity = new_capacity;
+	
+	return new_slice;
+}
+#+end_src
+
+O código equivalente do exemplo apresentado em Go utilizando nossa função, ficaria da seguinte maneira:
+
+#+begin_src c
+int numbers[] = {10, 20, 30, 40, 50};
+slice_t *slice = slice_create(numbers, 5, sizeof(int));
+
+slice_t *a = slice_slicing(slice, 0, 2); // [ 10, 20 ]
+slice_t *b = slice_slicing(slice, 0, 5); // cópia superficial
+slice_t *c = slice_slicing(slice, 2, 5); // [ 30, 40, 50 ]
+slice_t *d = slice_slicing(slice, 0, 3); // [ 10, 20, 30 ]
+#+end_src
