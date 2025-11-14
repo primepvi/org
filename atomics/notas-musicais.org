@@ -1,0 +1,15 @@
+#+title: Notas Musicais, Acidentes e Intervalos
+#+created_at: [2025-14-11]
+#+edited_at: [2025-14-11]
+#+tags: :musica :teoria-musical
+
+Para as mais diversas situações do nosso cotidiano temos *unidades de medidas* para *representações de intervalos*, na *música* também temos os *TONS* que representam um *intervalo entre notas*, também é comum o *SEMI-TOM* que consiste na *metade de um TOM*.
+Na *música* temos *sete notas naturais* sendo elas *Dó (C), Ré (D), Mi (E), Fá (F), Sol (G), Lá (A) e Si (B)*, segue a imagem abaixo mostrando o intervalo entre as notas:
+
+
+[[file:../assets/notas-naturais.png]]
+
+Essas *notas* são chamadas de *naturais*, pois *não possuem acidentes* (sustenidos "#" ou bemois "b"). Uma *nota sustenido* é quando se *aumenta* um *SEMI-TOM* de uma *nota natural exceto "Mi" e "Si"*, uma *nota bemol* é quando se *diminiu* um *SEMI-TOM* de *uma nota natural exceto "Dó" e "Fá"*. No *total existem um total de 12 notas*, sendo que existe *enarmonia* para *sustenidos e bemois*, isso significa que uma nota possui duas formas representativas. Veja a imagem abaixo:
+
+[[file:../assets/notas-nao-naturais.png]]
+

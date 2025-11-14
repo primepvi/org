@@ -1,6 +1,7 @@
 #+title: Criando Slices em Go
 #+created_at: <2025-11-13 qui>
 #+edited_at: [2025-11-13 qui]
+#+tags: :programação :golang
 
 Para criarmos *slices* em *go* podemos usar a *sintaxe* com *valores literais*, essa maneira é bem semelhante como inicializamos *arrays*, entretanto sem especificar o *tamanho*:
 

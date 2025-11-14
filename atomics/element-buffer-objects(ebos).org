@@ -1,6 +1,7 @@
 #+title: Element Buffer Objects (EBOs)
 #+created_at: [2025-11-13 qui]
-#+edited_at: [2025-11-13 qui]x
+#+edited_at: [2025-11-13 qui]
+#+tags: :opengl :vertex
 
 Quando precisamos desenhar formas mais complexas como por exemplo retângulos ou cubos, podemos desenhar utilizando vários triângulos, porém com apenas VBOs e VAOs, alguns vértices ficariam repetidos, trazendo assim um custo desnecessário, para resolvermos isso utilizamos Element Buffer Objects (EBOs), que são responsáveis por tornar possível anexarmos apenas os vértices únicos nos VBOs, isso acontece por conta que o EBO é um buffer que armazena os índices dos vértices que serão utilizados para cada triângulo, isso é chamado de desenho indexado. Vale ressaltar, que o EBO também é anexado no VAO.
 
