@@ -1,0 +1,7 @@
+#+title: Vertex Array Objects (VAOs)
+#+created_at:[2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: graphics opengl
+
+No OpenGL utilizamos vertex array objects (VAOs) para configurar vertex attributes, eles não armazenam os dados em si, mas sim as configurações de como a GPU deve interpretar os vertex buffer objects (VBOs). Para utilizarmos VAOs basta gerarmos um (glGenVertexArrays) e posteriormente fazer um bind no VAO (glBindVertexArray) antes de atribuirmos os vertex attributes, dessa forma poderemos usar essa configuração de vertex attributes sempre que precisarmos, vale ressaltar que é importante fazer o unbind (glBindVertexArray com id 0) do VAO para não efetuarmos alterações posteriormente sem nossa intenção.
+[[file:../assets/vaos.png]]

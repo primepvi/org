@@ -1,0 +1,12 @@
+#+title: Vertex Buffer Objects (VBOs)
+#+created_at: 2025-11-10T04:40:00
+#+edited_at: 2025-11-10T04:40:00
+#+tags: graphics opengl
+
+No *OpenGL* quando precisamos *renderizar* algo na tela, de início no *pipeline gráfico* passamos os *vertex attributes* para especificar os *atributos* da nossa *renderização* desejada, para isso utilizamos *VBOs* (*vertex buffer objects*), que é uma maneira de *armazenar* uma *coleção de vértices*, pois a *operação* de enviar *buffers* da *CPU* para a *GPU* é *custosa* e *lenta*, portanto desejamos *enviar* o *máximo* de *informação* que *conseguirmos* de *uma só vez*. No *OpenGL* existem *diversos tipos* de *buffer objects*, sendo um deles o *Array Buffer* (*GL_ARRAY_BUFFER*), que é o que utilizamos para os *VBOs*.
+
+O *processo* para *criar* um *buffer* no *OpenGL* é bem *simples*, primeiro *geramos* um *buffer* (*glGenBuffers*) e fazemos o *bind* desse *buffer* (*glBindBuffer*) (associação a um ID) e consequentemente *passamos* os *dados* que serão *inseridos* nesse *buffer* (*glBufferData*). Vale ressaltar que o *OpenGL* espera que *especifiquemos* o *tratamento* que aquele *buffer* deve *receber* pela *GPU*, podemos *especificar* de *três formas*:
+
+- *GL_STREAM_DRAW*: os *dados mudam sempre*;
+- *GL_STATIC_DRAW*: os *dados não mudam* (*constantes*);
+- *GL_DYNAMIC_DRAW*: os *dados podem mudar as vezes.*

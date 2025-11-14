@@ -1,0 +1,21 @@
+#+title: Estrutura Interna de Slices em Go
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: golang data-structures
+
+Em *Go*, um *slice* é uma *estrutura de dado* que representa uma "fatia" de um array. Por baixo dos panos, temos algo conceitualmente parecido com isso:
+
+#+begin_src c
+typedef struct {
+	void *buffer; // ponteiro para o primeiro elemento visível do 
+	size_t len;   // representa a quantidade de elementos visíveis no slice
+	size_t cap;   // representa a capacidade máxima a partir de buffer
+} slice_t;
+#+end_src
+
+- *len* (tamanho): representa a quantidade de elementos preenchidos no buffer do slice;
+- *cap* (capacity): quantos elementos podem ser armazenados a partir de buffer.
+
+Essas características são importantes de entender pelo fato de que caso queiramos criar uma "fatia" da "fatia", fazemos o *buffer* apontar para nova posição inicial, o *len* passa a ser a *quantidade* de *elementos preenchidos* a partir da *nova posição inicial* e o *cap* passa a ser a nova *capacidade total* a *partir* da *nova posição inicial.*
+
+Vale ressaltar, que caso queiramos adicionar um novo elementos porém já atingimos a *capacidade máxima* do slice, o buffer será *realocado* com maior capacidade afim de possibilitar a inserção de novos elementos, geralmente a capacidade nova é equivalente ao *dobro* da capacidade atual do slice.

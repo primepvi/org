@@ -1,0 +1,30 @@
+#+title: Fatiamento de Slices em Go
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: golang data-structures
+
+O fatiamento ou “slicing” em go, se refere ao ato de você criar uma cópia superficial de uma parte de um slice, de forma que seja possível você ter várias fatias com tamanhos e elementos diferentes, porém compartilhando o mesmo bloco de memória para o array.
+
+A sintaxe para fatiar é `slice[low:high]` onde a nova fatia inclui os elementos de `low` até `high-1`:
+- *low*: é referente ao *início* da nova fatia (*inclusivo*);
+- *high*: é referente ao *final* da nova fatia (*exclusivo*).
+#+begin_quote
+*Observação*: _Se omitirmos o *low* e *high* teremos uma cópia superficial de toda a fatia._
+#+end_quote
+
+Veja um exemplo logo abaixo:
+#+begin_src go
+slice := []int{10, 20, 30, 40, 50}
+a := slice[0:2] // [ 10, 20 ]
+b := slice[:] // [ 10, 20, 30, 40, 50 ]
+
+// do index 2 até o final
+c := slice[2:] // [ 30, 40, 50 ]
+
+// do inicio até o index 3 ( número 30 )
+d := slice[:3] // [ 10, 20, 30 ]
+#+end_src
+
+#+begin_quote
+*Observação*: _Se alterarmos um elemento da fatia, essa alteração irá acontecer para todas as fatias que compartilham o mesmo array. Isso acontece pois as fatias não efetuam cópia de memória, são apenas referências para o array._
+#+end_quote

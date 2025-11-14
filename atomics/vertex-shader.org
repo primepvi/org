@@ -1,0 +1,6 @@
+#+title: Vertex Shader
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: graphics opengl
+
+O Vertex Shader é o primeiro estágio do pipeline gráfico (opengl), ele roda uma vez para cada vértice enviado pela GPU. Sua principal função é transformar a posição de um vértice (geralmente um vetor normalizado) do espaço do modelo para o espaço de projeção da viewport (clip space), ele também é responsável por passar um output que irá servir de input para o Fragment Shader. No input o vertex shader recebe um vertex data que é uma coleção de dados composta por vertex attributes que são definidos na CPU, desde posições (vec3), normais (vec3), coordenadas de textura (vec2), cores (vec3 ou vec4), entre outros. Esses dados vem de buffers na GPU, normalmente de vertex buffer objects (vbos), e são ligados a variáveis de entrada (in) nos shaders via (layout(location = X))

@@ -1,0 +1,30 @@
+
+#+title: String Views — Representando visões sobre strings.
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: data-structures
+
+Uma string view é uma estrutura de dados que consiste em duas propriedades principais sendo elas um buffer de string imutável e uma propriedade de comprimento. Em suma, seu propósito é prover operações de manipulação de string sem necessitar de alocações extras, apenas alterando o comprimento e avançando o ponteiro do buffer. Vale ressaltar, que o buffer nunca tem seu conteúdo alterado, apenas efetuamos operações de mover o cursor dentro do buffer.
+
+Essa estrutura de dados permite operações de manipulação como slices, split, trim e muitas outras operações, cujo seriam extremamente custosas caso fosse utilizado uma abordagem onde envolvesse alocação de memória.
+
+#+begin_src c
+// as operações alteram apenas o length e avançam o ponteiro.
+typedef struct sv {
+  const char *buffer;
+  size_t length;
+} strview_t;
+
+// exemplo de função
+int sv_find(strview_t source, strview_t content) {
+  if (content.length > source.length || sv_is_empty(source))
+    return -1;
+
+  for (int i = 0; i < source.length; i++) {
+    if (memcmp(source.buffer + i, content.buffer, content.length) == 0)
+      return i;
+  }
+
+  return -1;
+}
+#+end_src

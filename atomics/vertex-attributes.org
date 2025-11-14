@@ -1,0 +1,19 @@
+#+title: Vertex Attributes
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: graphics opengl
+
+No *OpenGL* utilizamos *vertex buffer objects* (*VBOs*) para *armazenarmos* os *vertex attributes* que representam alguma informação importante de um *vértice* na qual é passada para o *vertex shader*, entretanto por *definição* um *VBO* é apenas uma *fileira de bits*, e precisamos passar para a *GPU* através do *OpenGL* a *forma de interpretação* desses *dados*. Para isso nós utilizamos duas funções, uma que é responsável pela *definição* de como *interpretar* por si só, que é o *glVertexAttribPointer* e a *função* *glEnableVertexAttribArray* que é *responsável* por *ativar* um *vertex attribute*, segue a *explicação* abaixo:
+
+- *index*: índice do vertex attribute (*layout*);
+- *size*: quantidade de elementos, *ex: (3 elementos de pos) (vec3)*;
+- *type*: tipo opengl do elemento, *ex: (GL_FLOAT)*;
+- *normalized*: se os elementos devem ser normalizados, *ex: (GL_TRUE ou GL_FALSE)*;
+- *stride*: tamanho do buffer do atributo, *ex: (3 * sizeof(float))*
+- *pointer*: ponteiro que representa o offset desde o inicio do vbo até o inicio do vertex attribute.
+
+#+begin_src c
+glVertexAttribPointer(index, size, type, normalized, stride, pointer)
+glEnableVertexAttribArray(index)
+#+end_src
+[[file:../assets/vertex-attributes.png]]

@@ -1,0 +1,57 @@
+#+title: Emacs Cheatsheet
+#+created_at: [2025-11-14]
+#+edited_at: [2025-11-14]
+#+tags: emacs binds
+
+*** Navegação
+| Comando | Descrição |
+|---------+-----------|
+| C-n     | Navegar para Próxima Linha |
+| C-p     | Navegar para Linha Anterior |
+| C-f     | Navegar para Próximo Caractere |
+| C-b     | Navegar para Caractere Anterior |
+| C-a     | Ir para o Início da Linha |
+| C-e     | Ir para o Fim da Linha |
+| M-f     | Navegar para Próxima Palavra |
+| M-b     | Navegar para Palavra Anterior |
+| C-v     | Rolar para Próxima Página |
+| M-v     | Rolar para Página Anterior |
+| C-l     | Recentralizar a Tela |
+
+*** Arquivo
+| Comando | Descrição |
+|---------+-----------|
+| C-x C-s | Salvar Arquivo |
+| C-x C-f | Abrir/Procurar Arquivo |
+| C-x C-w | Salvar Arquivo Como |
+| C-x C-c | Sair do Emacs |
+
+*** Edição
+| Comando | Descrição                    |
+|---------+------------------------------|
+| C-d     | Deletar Caractere            |
+| M-d     | Deletar Palavra              |
+| C-k     | Deletar até o Fim da Linha   |
+| C-y     | Colar (Yank)                 |
+| C-w     | Cortar Seleção (Kill Region) |
+| M-w     | Copiar Seleção (Copy Region) |
+| C-/     | Desfazer (Undo)              |
+| C-g     | Cancelar Comando             |
+| C-SPC   | Iniciar Seleção              |
+
+*** Buffers e Janelas
+| Comando | Descrição |
+|---------+-----------|
+| C-x b   | Mudar para Outro Buffer |
+| C-x k   | Fechar Buffer Atual |
+| C-x 2   | Dividir Janela Verticalmente |
+| C-x 3   | Dividir Janela Horizontalmente |
+| C-x o   | Mudar para Outra Janela |
+| C-x 0   | Fechar Janela Atual |
+
+*** Ajuda
+| Comando | Descrição |
+|---------+-----------|
+| C-h t   | Iniciar Tutorial do Emacs |
+| C-h k   | Descrever Tecla |
+| C-h f   | Descrever Função |

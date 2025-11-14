@@ -1,0 +1,7 @@
+#+title: Pipeline Gráfico OpenGL
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: opengl graphics
+
+No *OpenGL* tudo está no espaço *tridimensional*, porém a *tela/janela* é um *array* de *pixels bidimensionais*, portanto boa parte do *pipeline gráfico* se trata de *transformar coordenadas 3D* em *pixels 2D*, posteriormente na segunda parte esses *pixels bidimensionais* são *coloridos*. Cada etapa do *pipeline gráfico* produz um *output* que serve como *input* da próxima etapa, essas etapas rodam *pequenos programas* executados na *GPU* chamados de *shaders*, alguns *shaders* podem ser configurados por nós, isso nós dá bastante controle sobre a *renderização.* No *OpenGL* utilizamos a *linguagem GLSL* para escrevermos nossos próprios *shaders*.
+[[file:../assets/pipeline-opengl.png]]

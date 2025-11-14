@@ -1,7 +1,7 @@
 #+title: Criando Slices em Go
-#+created_at: <2025-11-13 qui>
-#+edited_at: [2025-11-13 qui]
-#+tags: :programação :golang
+#+created_at: [2025-11-10]
+#+edited_at: [2025-11-10]
+#+tags: golang data-structures
 
 Para criarmos *slices* em *go* podemos usar a *sintaxe* com *valores literais*, essa maneira é bem semelhante como inicializamos *arrays*, entretanto sem especificar o *tamanho*:
 
@@ -9,7 +9,7 @@ Para criarmos *slices* em *go* podemos usar a *sintaxe* com *valores literais*, 
 slice := []int{5, 10, 15, 20, 25}
 #+end_src
 
-Por baixo dos panos o *compilador* cria um *array* com *tamanho* e *capacidade* *iguais* e faz o *slice* *apontar* para ele, caso queiramos definir nós mesmos o *tamanho* e *capacidade* podemos usar a *função* make da seguinte forma:
+Por baixo dos panos o *compilador* cria um *array* com *tamanho* e *capacidade* *iguais* e faz o *slice* *apontar* para ele, caso queiramos definir nós mesmos o *tamanho* e *capacidade* podemos usar a *função* `make` da seguinte forma:
 
 #+begin_src go
 /* 
@@ -19,6 +19,6 @@ make([]int, 2, 4) -> len=2, cap=4
 */
 
 slice := make([]int, 3)
-#+end_src 
+#+end_src
 
 Quando utilizamos o make os primeiros *len* elementos do *array* recebem o valor padrão do *tipo especificado* para os *elementos* do *array.*
