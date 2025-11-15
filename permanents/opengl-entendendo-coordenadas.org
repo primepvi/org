@@ -1,7 +1,7 @@
 #+title: OpenGL - Entendendo Coordenadas
 #+created_at: [2025-11-10]
 #+edited_at: [2025-14-10]
-#+tags: golang c data-structures
+#+tags: opengl algebra-linear computação-gráfica
 
 ** Introdução
 
@@ -53,6 +53,8 @@ Uma matriz de projeção ortográfica (geralmente utilizada para projeção 2D),
 
 Criamos uma matriz de transformação para cada uma das etapas citadas: modelo, visualização, projeção. Uma coordenada de vértice é transformada para coordenadas de clipe da seguinte maneira:
 
+\begin{align}
 V_\text{clip} = M_\text{projection} \cdot M_\text{view} \cdot M_\text{model} \cdot V_\text{local}
+\end{align}
 
 Note que a ordem de multiplicação para matriz é invertida, portanto deve ser leita da direita pra esquerda. O vértice resultante é atribuído a `gl_Position` no vertex shader e o OpenGL executará automaticamente a divisão de perspectiva e o recorte.

@@ -1,0 +1,10 @@
+#+title:  Escala Maior
+#+created_at: [2025-11-15]
+#+edited_at: [2025-11-15]
+#+tags: musica teoria-musical
+
+Uma escala é um conjunto de notas com um intervalo específico entre as notas, existem diversos tipos de escalas, sendo uma delas a maior. A escala maior é um conjunto de sete notas, essas notas são as que serão soladas e formarão os acordes também. Veja uma representação abaixo:
+
+[[file:../assets/escala-maior.png]]
+
+O ideal é decorar as notas sustenidas de cada escala para facilitar, ou decorar as notas naturais em escalas maiores onde existem mais acidentes que notas naturais.
