@@ -1,0 +1,14 @@
+#+title: Jogos de Linguagem
+#+created_at: [2025-11-15]
+#+edited_at: [2025-11-11]
+#+tags: wittgenstein investigações-filosoficas filosofia-analitica linguagem
+
+*Santo Agostinho* faz uma tentativa de descrever brevemente o que consistiria uma *linguagem* em *Confissões (1/8)*, ele alega que todas palavras têm seu significado atrelado a um objeto. Entretanto, *Wittgenstein* cria um simples exemplo para mostrar que essa definição não cobre a nossa linguagem, mas sim uma linguagem *bem primitiva*:
+#+begin_quote
+"O construtor A grita palavras como 'bloco', 'viga', 'tijolo' e o construtor B, ao ouvir tais palavras, leva os objetos ao construtor A."
+#+end_quote
+Inicialmente, podemos pensar que as palavras nessa linguagem primitiva estão atreladas aos objetos em si, porém não exatamente. Por exemplo, *"bloco"* para o construtor A significa *pedir* ao construtor B para trazer o bloco para si, já para o construtor B significa *a ação* de levar o bloco até o construtor A.
+
+Supondo que os instrutores dessa linguagem ensinem as crianças mostrando o objeto e proferindo a palavra, porém determinando a função de *levar* ou *receber*, percebe-se que esse *ensino ostensivo* das palavras dá a finalidade dessa palavra de acordo com o *uso* dela. Portanto, caso se ensinasse outra ação, a palavra teria outro significado mesmo que atrelada ao mesmo objeto.
+
+Assim, percebe-se que mesmo numa linguagem extremamente primitiva como tal, ainda assim o significado das palavras não está estritamente relacionado a um objeto, mas *principalmente ao uso*,  isso são os *Jogos de Linguagem*, a totalidade formada pela linguagem e pelas *atividades/ações* nas quais elas estão ligadas.
