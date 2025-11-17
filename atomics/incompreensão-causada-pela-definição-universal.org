@@ -1,0 +1,11 @@
+#+title: Incompreensão causada pela Definição Universal
+#+created_at: [2025-11-16]
+#+edited_at: [2025-11-16]
+#+tags: wittgenstein linguagem jogos-de-linguagem filosofia filosofia-analitica
+
+Considerando um jogo de linguagem primitivo e um ensino ostensivo das palavras,
+podemos notar que rapidamente surgem problemas quando recorremos a palavras sem um significado aparente, como por exemplo "aquilo" ou "isso". Isso acontece pois a mesma metodologia de ensino, isto é, através de apontamento, é utilizada para palavras como "bloco" ou "viga". Portanto, nada no gesto isoladamente determina qual palavra deve ser aprendida, assim criando ambiguidade. 
+
+Diante disso, recorremos a definições para criar distinções mais claras. Entretanto, é necessário o cuidado para a descrição não ser "universal" demais, a designação traz consigo uma imagem enganosa, a imagem de que há sempre uma relação entre objeto e palavra, e isso causa incompreensão pois mascara o uso, que é justamente o que dá o significado da palavra. Portanto, precisamos definir as distinções com o uso explícito (mostrar qual jogo de linguagem está sendo jogado), pois uma definição sempre pertence a um jogo de linguagem, que não captura toda a diversidade de usos possíveis.
+
+Em suma, ao formular distinções conceituais, é importante incluir o jogo de linguagem no qual a definição pertence, dessa forma, evitamos a incompreensão. 
