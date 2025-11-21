@@ -1,0 +1,23 @@
+
+#+title: Rust: Liberando Memória com Drop
+#+created_at: [2025-11-21]
+#+edited_at: [2025-11-21]
+#+tags: rust programação memória ownership trait 
+
+Liberação de memória é uma das camadas do sistema de ownership do rust, após o dono do valor sair do escopo precisamos devolver a memória descartando o valor. Isso acontece de forma implícita, quando o dono sai de escopo o método *drop* proveniente da trait *Drop* é chamado para liberar a memória.
+
+Literais de string *&str* são alocados na stack e são imutáveis, pois são conhecidos em tempo de compilação, entretanto para strings mutaveis precisamos utilizar *String*, que faz alocações dinâmicas na heap. Podemos utilizar o tipo *String* para entendermos como a memória é liberada, considere o código abaixo:
+#+begin_src rust-ts
+fn main() {
+  {
+    let s = String::from("Hello, World");
+    s.push_str("!"); // concatena o "!" a string "Hello, World"
+    println!("{}", s);
+  }
+
+  // "s" aqui não é mais acessível, portanto precisamos devolver a memória
+  // quando "s" sai do escopo o "drop" é chamado para devolver a memória
+  // é necessário implementar a trait Drop para estruturas que gerenciam
+  // memória na heap
+}
+#+end_src

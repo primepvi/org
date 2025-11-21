@@ -1,0 +1,10 @@
+#+title: Rust: Conceito Geral de Ownership
+#+created_at: [2025-11-21]
+#+edited_at: [2025-11-21]
+#+tags: rust programação memória
+
+O sistema de *ownership* do rust é um conjunto de regras que define como o programa deve gerenciar sua memória, de forma que evite a necessidade de *garbage collectors*. Essa metodologia é consistida em três regras principais, veja abaixo:
++ Cada valor em rust tem um dono;
++ Só pode haver um dono para cada valor;
++ Quando o dono sair de escopo, o valor é descartado.
+  
