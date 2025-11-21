@@ -1,0 +1,38 @@
+#+title: Rust: Semântica de Move e Copy
+#+created_at: [2025-11-21]
+#+edited_at: [2025-11-21]
+#+tags: rust ownership memória
+
+Em rust temos o sistema de ownership que implica em algumas regras quando trabalhamos com memória. Portanto, segue o exemplo abaixo:
+#+begin_src rust
+fn main() {
+    let ls1 = "Hello, World";
+    let ls2 = ls1;
+    println!("{} {}", ls1, ls2);
+    // OK! O valor é copiado de ls1 para ls2
+
+    let s1 = String::from("Hello, World");
+    let s2 = s1;
+    println!("{} {}", s1, s2);
+    // Erro! O dono da string deixa de ser s1 e passa a ser s2
+    // s1 não é mais válido
+ }
+#+end_src
+Como vemos no exemplo acima, quando um valor é alocado na heap ele não pode ser copiado, pois o que a variável armazena é apenas um ponteiro, a cópia superficial de ponteiros causaria a desaloção de recursos 2 vezes, causando problemas. Portanto, o valor de s1 foi movido para s2, caso queiramos que ambos armazene o mesmo valor, precisamos clonar s1 para s2, criando assim uma nova alocação através de uma cópia profunda.
+#+begin_src rust
+fn main() {
+    let ls1 = "Hello, World";
+    let ls2 = ls1;
+    println!("{} {}", ls1, ls2);
+    // Ok! O valor é copiado de ls1 para ls2
+
+    let s1 = String::from("Hello, World");
+    let s2 = s1.clone();
+    println!("{} {}", s1, s2);
+    // Ok! o valor foi clonado
+ }
+#+end_src
+
+#+RESULTS:
+: Hello, World Hello, World
+
