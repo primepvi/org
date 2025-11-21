@@ -1,0 +1,29 @@
+#+title: Rust: References e Borrowing
+#+created_at: [2025-11-21]
+#+edited_at: [2025-11-21]
+#+tags: rust ownership memória
+
+Devido ao sistema de ownership do rust, quando passamos um argumento alocado na heap por valor para uma função, o parâmetro da função passa a ser o dono desse valor, portanto ocorre um *move*, se quisermos evitar isso podemos passar um clone ou alterar a função para experar uma refêrencia, dessa forma podemos fazer o borrow (emprestar o valor para a função),  veja abaixo um exemplo:
+#+begin_src rust
+fn write(source: String) {
+    println!("{}", source);
+}
+
+fn concat(source: &mut String, sufix: &str) -> () {
+    source.push_str(sufix);
+}
+
+fn main() {
+    let mut s1 = String::from("Hello");
+    concat(&mut s1, ", World!");
+    // s1 ainda é valido pois apenas emprestamos
+
+    write(s1);
+    // s1 não é mais valido, pois foi movido
+}
+#+end_src
+
+#+RESULTS:
+: Hello, World!
+
+Vale ressaltar que, o sistema de ownership permite efetuar borrow numa quantidade ilimitada de vezes, já o borrow imutável apenas uma vez, e ele deve ser o único borrow.
