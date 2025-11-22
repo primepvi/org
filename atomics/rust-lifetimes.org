@@ -1,0 +1,21 @@
+#+title:  Rust: Entendendo Lifetimes
+#+created_at: [2025-11-21]
+#+edited_at: [2025-11-21]
+#+tags: rust ownership lifetimes memória
+
+No sistema de borrow do rust, temos um borrow checker, que é responsável por verificar se as refêrencias são válidas, para evitar de acessarmos memória inválida. Para checar se uma refêrencia ainda é valida, o compilador na maioria das vezes infere o lifetime (tempo de vida) de determinado valor, pra ver se ele já se expirou ("drop"). Entretanto, em alguns casos precisamos fazer anotações de lifetime, quando o compilador não consegue descobrir o lifetime correto, para isso utilizamos algo similar aos generic types, como por exemplo 'a, também temos o 'static que implica num tempo de vida estático (pode viver durante todo o programa). Veja alguns exemplos abaixo:
+#+begin_src rust
+fn select<'a>(a: &'a str, b: &'a str, second: bool) -> &'a str {
+   if !second { a } else { b }
+}
+
+fn main() {
+    let a = "Hello";
+    let b = "World";
+
+    println!("{}, {}", select(a, b, false), select(a, b, true));
+}
+#+end_src 
+
+#+RESULTS:
+: Hello, World
